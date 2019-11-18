@@ -41,7 +41,7 @@ export default function Login(props) {
   const classes = useStyles();
   return (
     <div className="Login">
-      <form onSubmit={handleChange}>
+      <form onSubmit={handleLogin}>
         <Paper className={classes.paper}>
           <div className={classes.inputContainer}>
             <TextField
@@ -51,7 +51,6 @@ export default function Login(props) {
               margin="normal"
               variant="outlined"
               autoComplete={false}
-              type="submit"
             />
             <TextField
               name=""
@@ -75,6 +74,7 @@ export default function Login(props) {
             color="secondary"
             className={classes.button}
             onClick={handleReset}
+            type="submit"
           >
             Reset
           </Button>
