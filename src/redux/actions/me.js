@@ -1,7 +1,7 @@
 import * as types from "../constants/me";
 import axios from "axios";
 
-export const login = (userId, password) => ({
+export const LoginUser = (userId, password) => ({
   type: types.LOGIN,
   payload: null
 });
