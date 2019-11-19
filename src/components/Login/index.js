@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { LoginUser } from "../../redux/actions/me";
+import { loginUser } from "../../redux/actions/me";
 import Login from "./Login";
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  me: state.me
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { loginUser };
 
 class index extends Component {
   state = {
@@ -14,20 +16,24 @@ class index extends Component {
     password: ""
   };
 
-  handleLogin = () => {
+  handleLogin = e => {
+    e.preventDefault();
     const { email, password } = this.state;
-    console.log(email, password);
+    this.props.loginUser(email, password);
   };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleReset = () => this.setState({ email: "", password: "" });
-
   render() {
     return (
-      <Login handleLogin={this.handleLogin} handleChange={this.handleChange} />
+      <Login
+        handleLogin={this.handleLogin}
+        handleChange={this.handleChange}
+        email={this.state.email}
+        password={this.state.password}
+      />
     );
   }
 }

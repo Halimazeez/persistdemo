@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Login(props) {
-  const { handleChange, handleLogin, handleReset } = props;
+  const { email, handleChange, handleLogin, password } = props;
 
   const classes = useStyles();
   return (
@@ -47,36 +47,30 @@ export default function Login(props) {
             <TextField
               name="email"
               className={classes.textField}
+              onChange={handleChange}
               label="Email"
               margin="normal"
               variant="outlined"
-              autoComplete={false}
+              value={email}
             />
             <TextField
-              name=""
+              name="password"
               className={classes.textField}
               onChange={handleChange}
               type="password"
               label="Password"
               margin="normal"
               variant="outlined"
+              value={password}
             />
           </div>
           <Button
             variant="contained"
             className={classes.loginButton}
             onClick={handleLogin}
-          >
-            Login
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            onClick={handleReset}
             type="submit"
           >
-            Reset
+            Login
           </Button>
         </Paper>
       </form>
