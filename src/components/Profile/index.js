@@ -28,7 +28,6 @@ function Profile(props) {
   const logout = () => props.logout();
 
   const user = props.me.data;
-  console.log(user);
   return (
     <Paper className={classes.paper}>
       {user.fullname}

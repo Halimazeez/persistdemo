@@ -1,4 +1,6 @@
 import * as types from "../constants/me";
+import { persistor } from "../store";
+import { REHYDRATE } from "redux-persist";
 
 const initialState = {
   data: {},
@@ -9,6 +11,14 @@ const initialState = {
   message: ""
 };
 
+const resetState = {
+  data: {},
+  loading: false,
+  fetched: false,
+  error: false,
+  loggedIn: false,
+  message: ""
+};
 export const me = (state = initialState, action) => {
   switch (action.type) {
     case `${types.GET_ME}_PENDING`:
@@ -30,9 +40,9 @@ export const me = (state = initialState, action) => {
     case `${types.GET_ME}_REJECTED`:
       return { ...state, loading: false, error: true, message: action.payload };
 
-    case types.LOGOUT:
+    case `${types.LOGOUT}_FULFILLED`:
       localStorage.removeItem("accessToken");
-      return { ...state, loggedIn: false };
+      return { state: resetState, loggedIn: false };
 
     default:
       return state;

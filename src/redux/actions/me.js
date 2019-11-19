@@ -1,5 +1,6 @@
 import * as types from "../constants/me";
 import axios from "axios";
+import { persistor } from "../store";
 
 export const loginUser = (email, password) => dispatch =>
   dispatch({
@@ -19,17 +20,13 @@ export const getMe = () => dispatch =>
       }
     })
   }).catch(err => {
-    console.log(err.response);
-    if (!err.response) {
-      console.log("no network");
-      return null;
-    }
-    if (err.response.status === 401) {
-      return localStorage.removeItem("accessToken");
+    if (err.response && err.response.status === 401) {
+      persistor.purge();
+      return dispatch(logout());
     }
   });
 
 export const logout = () => ({
   type: types.LOGOUT,
-  payload: false
+  payload: Promise.resolve(false)
 });

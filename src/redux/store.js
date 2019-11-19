@@ -9,12 +9,12 @@ import rootReducer from "./reducers";
 
 const enhancer = composeWithDevTools(applyMiddleware(thunk, promise));
 
-const persistConfig = {
-  key: "root",
-  storage
-};
+// const persistConfig = {
+//   key: "root",
+//   storage
+// };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, enhancer);
+export const store = createStore(rootReducer, enhancer);
 export const persistor = persistStore(store);
