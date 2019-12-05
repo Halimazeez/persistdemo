@@ -26,6 +26,13 @@ export const me = (state = initialState, action) => {
 
     case `${types.LOGIN}_FULFILLED`:
       localStorage.setItem("accessToken", action.payload.data.access_token);
+      localStorage.setItem("refreshToken", action.payload.data.refresh_token);
+
+      return { ...state };
+
+    case `${types.REFRESH_TOKEN}_FULFILLED`:
+      localStorage.setItem("accessToken", action.payload.data.access_token);
+
       return { ...state };
 
     case `${types.GET_ME}_FULFILLED`:
@@ -42,6 +49,7 @@ export const me = (state = initialState, action) => {
 
     case `${types.LOGOUT}_FULFILLED`:
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       return { state: resetState, loggedIn: false };
 
     default:

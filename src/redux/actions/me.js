@@ -21,10 +21,28 @@ export const getMe = () => dispatch =>
     })
   }).catch(err => {
     if (err.response && err.response.status === 401) {
-      persistor.purge();
-      return dispatch(logout());
+      dispatch(refreshToken());
     }
   });
+
+export const refreshToken = () => dispatch =>
+  dispatch({
+    type: types.REFRESH_TOKEN,
+    payload: axios.post(
+      "https://dev.propel.live/api/v1/auth/refresh",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("refreshToken")}`
+        }
+      }
+    )
+  })
+    .then(res => dispatch(getMe()))
+    .catch(err => {
+      persistor.purge();
+      return dispatch(logout());
+    });
 
 export const logout = () => ({
   type: types.LOGOUT,
